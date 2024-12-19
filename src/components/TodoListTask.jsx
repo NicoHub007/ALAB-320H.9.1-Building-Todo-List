@@ -10,44 +10,57 @@ function TodoListTask({ task, dispatch }) {
   const handleSave = () => {
     if (editedTitle.trim()) {
       dispatch({ type: "edit_todo", payload: { id: task.id, title: editedTitle } });
-      setIsEditing(false); // Exit edit mode
+      setIsEditing(false);
     } else {
-      alert("Title cannot be empty.");
+      alert("Title cannot be empty");
     }
   };
 
   const handleCancel = () => {
-    setEditedTitle(task.title); // Reset the edited title
-    setIsEditing(false); // Exit edit mode
+    setEditedTitle(task.title); // Reset title to original
+    setIsEditing(false);
   };
 
+  const handleDelete = () => {
+    if (window.confirm("Are you sure you want to delete this task?")) {
+      dispatch({ type: "remove_todo", payload: { id: task.id } });
+    }
+  };
   return (
-    <div style={{ marginBottom: "10px" }}>
+    <div style={{ marginBottom: "10px", border: "1px solid #ccc", padding: "10px", borderRadius: "5px" }}>
       <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
         <CheckboxInput
           state={task.completed}
           setState={() => dispatch({ type: "toggle_todo", payload: { id: task.id } })}
-          disabled={isEditing}
+          disabled={isEditing} // Disable checkbox while editing
         />
         {isEditing ? (
           <TextInput state={editedTitle} setState={setEditedTitle} />
         ) : (
-          <span>{task.title}</span>
+          <span style={{ textDecoration: task.completed ? "line-through" : "none" }}>
+            {task.title}
+          </span>
         )}
       </div>
-      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: "10px", marginTop: "5px" }}>
         {isEditing ? (
           <>
-            <ActionButton onClick={handleSave} disabled={!editedTitle.trim()}>
-              Save
-            </ActionButton>
-            <ActionButton onClick={handleCancel}>Cancel</ActionButton>
+            <button onClick={handleSave}>Save</button>
+            <button onClick={handleCancel}>Cancel</button>
           </>
         ) : (
           <>
-            <ActionButton onClick={() => setIsEditing(true)}>Edit</ActionButton>
+            <ActionButton 
+              type={'edit_todo'}
+              payload={{title: task.title}}
+               dispatch={() => setIsEditing(true)}
+              >
+                Edit
+              </ActionButton>
             <ActionButton
-              onClick={() => dispatch({ type: "remove_todo", payload: { id: task.id } })}
+              type= "remove_todo"
+                payload= { { title: task.title }}
+              dispatch={ dispatch }
               disabled={!task.completed}
             >
               Delete

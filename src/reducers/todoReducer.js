@@ -20,7 +20,7 @@ export default function todoReducer(state, { type, payload }) {
         }
 
         case "remove_todo": {
-            return state.filter(todo => todo.id !== payload.id);
+            return state.filter(todo => todo.title !== payload.title);
         }
 
         case "toggle_todo": {

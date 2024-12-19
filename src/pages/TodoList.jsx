@@ -142,10 +142,8 @@ function TodoList() {
         <div>
             <h1>Todo List</h1>
             <div>
-                Add a New Task
                 <TextInput state={title} setState={setTitle} />
-                <br />
-               <CheckboxInput state={completed} setState={setCompleted} />
+               {/* <CheckboxInput state={completed} setState={setCompleted} /> */}
                 <ActionButton
                     type="add_todo"
                     payload={{ title, completed }}

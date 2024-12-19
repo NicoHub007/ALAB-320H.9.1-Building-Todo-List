@@ -4,6 +4,7 @@ function TextInput({state, setState}) {
       type='text'
       value={state}
       onChange={(evt) => setState(evt.target.value)}
+      placeholder='Enter New Task Here...'
     />
   )
 };

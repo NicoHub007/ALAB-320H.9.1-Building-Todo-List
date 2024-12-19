@@ -1,7 +1,7 @@
 function ActionButton({ children, dispatch, type, payload, disabled }) {
   return (
     <button
-      onClick={() => dispatch && dispatch({ type, payload })}
+      onClick={() => dispatch({ type: type, payload: payload })}
       disabled={disabled}
     >
       {children}
