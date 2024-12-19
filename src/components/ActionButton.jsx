@@ -1,9 +1,12 @@
-import React from 'react'
-
-function ActionButton() {
+function ActionButton({ children, dispatch, type, payload, disabled }) {
   return (
-    <div>ActionButton</div>
-  )
+    <button
+      onClick={() => dispatch && dispatch({ type, payload })}
+      disabled={disabled}
+    >
+      {children}
+    </button>
+  );
 }
 
-export default ActionButton
+export default ActionButton;

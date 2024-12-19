@@ -1,5 +1,5 @@
 import { useReducer, useState } from 'react'
-import TodoListItem from '../components/TodoListItem';
+import TodoListItem from '../components/TodoListTask';
 import ActionButton from '../components/ActionButton';
 import TextInput from '../components/TextInput';
 import CheckboxInput from '../components/CheckboxInput';
@@ -127,7 +127,6 @@ const initialState = [
         "completed": true
     }
 ];
-
 function TodoList() {
     const [title, setTitle] = useState('');
     const [completed, setCompleted] = useState(false);
@@ -135,31 +134,29 @@ function TodoList() {
 
     const todoList = todo.map((todo) => {
         return (
-            <TodoListItem key={todo.id} todo={todo} dispatch={dispatch} />
-        )
-    })
+            <TodoListItem key={todo.id} task={todo} dispatch={dispatch} />
+        );
+    });
 
     return (
         <div>
             <h1>Todo List</h1>
             <div>
-                Add a New Todo
+                Add a New Task
                 <TextInput state={title} setState={setTitle} />
                 <br />
-                <CheckboxInput state={completed} setState={setCompleted} />
+               <CheckboxInput state={completed} setState={setCompleted} />
                 <ActionButton
-                    type='add_todo'
+                    type="add_todo"
                     payload={{ title, completed }}
                     dispatch={dispatch}
                 >
-                    Add Todo
+                    Add Task
                 </ActionButton>
             </div>
-            <div>
-                {todoList}
-            </div>
+            <div>{todoList}</div>
         </div>
-    )
+    );
 }
 
-export default TodoList
+export default TodoList;
